@@ -1,6 +1,6 @@
 ##### MongoDB from the command line
 
-cls == clears the terminal
+cls == clears the terminal OR clear
 
 insert link from mongo db
 
@@ -45,4 +45,10 @@ echo $MONGO_URI  == will print back the uri string
 
 coll.insert(new_doc)  == will insert a single new_doc
 
-coll.insert_maney(new_docs)   == will insert mnaney docs
+coll.insert_many(new_docs)   == will insert many docs
+
+coll.update_one({'first': 'martha'}, {'$set': {'gender': 'f'}})  == will update that field useing the set
+
+'$set':
+
+coll.update_many()  == will update many
