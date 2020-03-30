@@ -1,12 +1,14 @@
+from flask import Flask
 import pymongo
 import os
 from os import path
 if path.exists("env.py"):
     import env
 
-app = Flask(__name__)
-
-app.secret_key = os.environ.get("SECRET_KEY")
+"""
+#print(os.environ.get("MONGO_URI"))
+#app.MONGO_URI = os.environ.get("MONGO_URI")
+"""
 
 MONGODB_URI = os.getenv("MONGO_URI")
 DBS_NAME = "myTestDB"
@@ -46,23 +48,23 @@ def add_record():
     hair_color = input("Enter hair color >")
     occupation = input("Enter occupation >")
     nationality = input("Enter nationality >")
+    new_doc = {'first': first.lower(), 'last': last.lower(), 'dob': dob,
+               'gender': gender, 'hair_colour': hair_color, 'occupation':
+               occupation, 'nationality': nationality}
+    return new_doc
 
 
-new_doc = {'first': first.lower(), 'last': last.lower(), 'dob': dob,'gender': gender, 'hair_color': hair_color, 'occupation': occupation, 'nationality': nationality}
-
-try:
-    coll.insert_one(new_doc)
-    print("")
-    print("Document inserted")
-except:
-    print("Error accessing database")
-
-
-def main_loop():
+def main_loop(conn, coll):
     while True:
         option = show_menu()
         if option == "1":
-            add_record()
+            new_doc = add_record()
+            try:
+                coll.insert_one(new_doc)
+                print("")
+                print("Document inserted")
+            except:
+                print("Error accessing database")
         elif option == "2":
             print("You have selected option 2")
         elif option == "3":
@@ -77,4 +79,4 @@ def main_loop():
         print("")
 
 
-main_loop()
+main_loop(conn, coll)
