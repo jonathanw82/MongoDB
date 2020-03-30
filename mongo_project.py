@@ -113,8 +113,9 @@ def delete_record():
             if k != "_id":
                 print(k.capitalize() + ": " + v.capitalize())
 
-        print ("")        
-        confirmation = input("Is this the document you want to delete?\nY or N >")
+        print("")
+        confirmation = input("Is this the document you\
+                              want to delete?\nY or N >")
         print("")
 
         if confirmation.lower() == 'y':
@@ -124,7 +125,7 @@ def delete_record():
             except:
                 print("Error acessing the database")
         else:
-            print("Document not deleted")            
+            print("Document not deleted")
 
 
 def main_loop():
